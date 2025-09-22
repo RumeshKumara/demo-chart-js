@@ -9,6 +9,7 @@
   <body>
     <h1>Chart.js Demo</h1>
     <canvas id="myChart" width="800" height="200"></canvas>
+    <canvas id="myChart2" width="800" height="200"></canvas>
 
     <script>
       const data = [
@@ -31,6 +32,35 @@
               data: data.map((row) => row.count),
             },
           ],
+        },
+      });
+
+      const ctx = document.getElementById("myChart2").getContext("2d");
+      const myChart2 = new Chart(ctx, {
+        type: "bar", // Chart type
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "Votes",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                "red",
+                "blue",
+                "yellow",
+                "green",
+                "purple",
+                "orange",
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: "top" },
+            title: { display: true, text: "Votes per Color" },
+          },
         },
       });
     </script>

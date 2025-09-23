@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CodeFlow Advanced Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        margin: 20px;
+        background: #f0f4f9;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+      }
+      .badges {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+      }
+      .badge {
+        flex: 1;
+        background: #fef3c7;
+        padding: 15px;
+        text-align: center;
+        border-radius: 12px;
+        font-size: 20px;
+        position: relative;
+      }
+      .progress {
+        height: 8px;
+        background: #ddd;
+        border-radius: 6px;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #4a90e2, #67c1f5);
+        width: 50%;
+      }
+      button,
+      input[type="text"],
+      input[type="checkbox"] {
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      button {
+        background: linear-gradient(90deg, #4a90e2, #67c1f5);
+        color: white;
+        border: none;
+      }
+      button:hover {
+        opacity: 0.9;
+      }
+      .status {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      .sync-on {
+        color: green;
+      }
+      .sync-off {
+        color: red;
+      }
+      .timer {
+        font-size: 1.5rem;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>⚡ CodeFlow Advanced Dashboard</h1>
+
+    <div class="grid">
+      <!-- Daily Coding Hours Chart -->
+      <div class="card">
+        <h2>📅 Daily Coding Hours</h2>
+        <canvas id="dailyHoursChart"></canvas>
+      </div>
+
+      <!-- Weekly Report -->
+      <div class="card">
+        <h2>📊 Weekly Productivity Trend</h2>
+        <canvas id="weeklyChart"></canvas>
+      </div>
+
+      <!-- Top Commands -->
+      <div class="card">
+        <h2>⌨️ Top Commands</h2>
+        <canvas id="commandsChart"></canvas>
+      </div>
+
+      <!-- Tracking + Timer -->
+      <div class="card">
+        <h2>⏱️ Tracking</h2>
+        <label>
+          <input type="checkbox" id="trackingToggle" /> Enable Tracking
+        </label>
+        <p id="trackingStatus">Tracking is OFF</p>
+        <button onclick="startTimer()">Start Coding Session</button>
+        <button onclick="stopTimer()">Stop</button>
+        <div class="timer" id="timer">00:00:00</div>
+      </div>
+
+      <!-- Badges -->
+      <div class="card">
+        <h2>🏅 Earned Badges</h2>
+        <div class="badges">
+          <div class="badge">
+            🔥 Streak
+            <div class="progress">
+              <div class="progress-bar" style="width: 80%"></div>
+            </div>
+          </div>
+          <div class="badge">
+            ⚡ Speed
+            <div class="progress">
+              <div class="progress-bar" style="width: 60%"></div>
+            </div>
+          </div>
+          <div class="badge">
+            🏆 Master
+            <div class="progress">
+              <div class="progress-bar" style="width: 40%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cloud Sync -->
+      <div class="card">
+        <h2>☁️ Cloud Sync</h2>
+        <button onclick="toggleCloudSync()">Toggle Cloud Sync</button>
+        <p id="cloudStatus" class="status sync-off">Cloud Sync is OFF</p>
+      </div>
+
+      <!-- API Config -->
+      <div class="card">
+        <h2>⚙️ Configure API</h2>
+        <input type="text" id="apiKey" placeholder="Enter API Key" />
+        <button onclick="saveAPI()">Save Key</button>
+        <p id="apiStatus"></p>
+      </div>
+    </div>
+
+    <script>
+      // Daily Coding Hours Chart (Bar Chart)
+      new Chart(document.getElementById("dailyHoursChart"), {
+        type: "bar",
+        data: {
+          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          datasets: [
+            {
+              label: "Hours Worked",
+              data: [4, 6, 5, 7, 3, 2, 4], // Example data
+              backgroundColor: "#4a90e2",
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: "Hours" },
+            },
+            x: {
+              title: { display: true, text: "Days" },
+            },
+          },
+        },
+      });
+
+      // Weekly Productivity Line Chart
+      new Chart(document.getElementById("weeklyChart"), {
+        type: "line",
+        data: {
+          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          datasets: [
+            {
+              label: "Productivity Score",
+              data: [70, 85, 60, 90, 75, 50, 65],
+              borderColor: "#67c1f5",
+              backgroundColor: "rgba(103,193,245,0.2)",
+              fill: true,
+              tension: 0.3,
+            },
+          ],
+        },
+      });
+
+      // Top Commands Chart
+      new Chart(document.getElementById("commandsChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["Format", "Save", "Run", "Debug", "Refactor"],
+          datasets: [
+            {
+              data: [20, 15, 10, 8, 5],
+              backgroundColor: [
+                "#4a90e2",
+                "#67c1f5",
+                "#50e3c2",
+                "#f5a623",
+                "#d0021b",
+              ],
+            },
+          ],
+        },
+      });
+
+      // Tracking Toggle
+      const trackingToggle = document.getElementById("trackingToggle");
+      const trackingStatus = document.getElementById("trackingStatus");
+      trackingToggle.addEventListener("change", () => {
+        trackingStatus.textContent = trackingToggle.checked
+          ? "Tracking is ON"
+          : "Tracking is OFF";
+      });
+
+      // Timer
+      let timerInterval,
+        seconds = 0;
+      function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          seconds++;
+          document.getElementById("timer").textContent = new Date(
+            seconds * 1000
+          )
+            .toISOString()
+            .substr(11, 8);
+        }, 1000);
+      }
+      function stopTimer() {
+        clearInterval(timerInterval);
+      }
+
+      // Cloud Sync
+      function toggleCloudSync() {
+        const cloudStatus = document.getElementById("cloudStatus");
+        if (cloudStatus.textContent.includes("OFF")) {
+          cloudStatus.textContent = "Cloud Sync is ON";
+          cloudStatus.className = "status sync-on";
+        } else {
+          cloudStatus.textContent = "Cloud Sync is OFF";
+          cloudStatus.className = "status sync-off";
+        }
+      }
+
+      // API Config with localStorage
+      function saveAPI() {
+        const key = document.getElementById("apiKey").value;
+        if (key.trim()) {
+          localStorage.setItem("codeflow_api", key);
+          document.getElementById("apiStatus").textContent =
+            "✅ API Key saved!";
+        } else {
+          document.getElementById("apiStatus").textContent =
+            "❌ Please enter a valid key.";
+        }
+      }
+      // Load API Key if saved
+      window.onload = () => {
+        const savedKey = localStorage.getItem("codeflow_api");
+        if (savedKey) {
+          document.getElementById("apiKey").value = savedKey;
+          document.getElementById("apiStatus").textContent =
+            "✅ API Key loaded.";
+        }
+      };
+    </script>
+  </body>
+</html>

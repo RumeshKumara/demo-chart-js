@@ -230,6 +230,411 @@
         font-size: 1.5rem;
         margin-top: 10px;
       }
+
+      /* Modern Timer Styles */
+      .timer-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .timer-display {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        font-family: "Monaco", "Consolas", monospace;
+        font-size: 2rem;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .timer-display.running {
+        animation: timerPulse 2s infinite;
+      }
+
+      .timer-display::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        animation: timerShine 3s infinite;
+      }
+
+      .timer-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+      }
+
+      .timer-btn {
+        padding: 12px 16px;
+        border-radius: 10px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .timer-btn.start {
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+        color: white;
+      }
+
+      .timer-btn.pause {
+        background: linear-gradient(135deg, #f093fb, #f5576c);
+        color: white;
+      }
+
+      .timer-btn.stop {
+        background: linear-gradient(135deg, #fc466b, #3f5efb);
+        color: white;
+      }
+
+      .timer-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .timer-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .session-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      .stat-card {
+        background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-value {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 5px;
+      }
+
+      .productivity-meter {
+        margin-top: 15px;
+        background: #f0f0f0;
+        border-radius: 10px;
+        padding: 15px;
+      }
+
+      .productivity-bar {
+        width: 100%;
+        height: 10px;
+        background: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 10px;
+      }
+
+      .productivity-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+        border-radius: 5px;
+        transition: width 0.8s ease;
+        position: relative;
+      }
+
+      .session-goals {
+        margin-top: 15px;
+        padding: 15px;
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        border-radius: 10px;
+        border-left: 4px solid #2196f3;
+      }
+
+      .goal-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 8px 0;
+        padding: 8px 12px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .goal-checkbox {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #2196f3;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .goal-checkbox.completed {
+        background: #2196f3;
+      }
+
+      .goal-checkbox.completed::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      @keyframes timerPulse {
+        0%,
+        100% {
+          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        50% {
+          box-shadow: 0 4px 25px rgba(102, 126, 234, 0.6);
+        }
+      }
+
+      @keyframes timerShine {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      /* Enhanced Chart Cards Styles */
+      .chart-section {
+        position: relative;
+        margin-bottom: 20px;
+      }
+
+      .motivation-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+      }
+
+      .motivation-text .emoji {
+        font-size: 1.2rem;
+        margin-right: 8px;
+      }
+
+      .improvement-tips {
+        margin-top: 15px;
+        padding: 15px;
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border-radius: 10px;
+        border-left: 4px solid #4a90e2;
+      }
+
+      .improvement-tips h4 {
+        margin: 0 0 10px 0;
+        color: #2d3748;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .tip-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .tip-item {
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border-left: 3px solid #4a90e2;
+        transition: transform 0.2s ease;
+      }
+
+      .tip-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .tip-title {
+        font-weight: bold;
+        font-size: 0.8rem;
+        color: #2d3748;
+        margin-bottom: 5px;
+      }
+
+      .tip-description {
+        font-size: 0.7rem;
+        color: #64748b;
+        line-height: 1.3;
+      }
+
+      .shortcuts-section {
+        margin-top: 15px;
+        padding: 15px;
+        background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        border-radius: 10px;
+        border-left: 4px solid #f59e0b;
+      }
+
+      .shortcut-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .shortcut-item {
+        background: white;
+        padding: 10px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .shortcut-key {
+        background: #374151;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-weight: bold;
+        font-size: 0.7rem;
+      }
+
+      .performance-metrics {
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+      }
+
+      .metric-card {
+        background: linear-gradient(135deg, #10b981, #34d399);
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+      }
+
+      .metric-value {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .metric-label {
+        font-size: 0.7rem;
+        opacity: 0.9;
+      }
+
+      .chart-controls {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+
+      .chart-btn {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: none;
+        background: linear-gradient(135deg, #4a90e2, #67c1f5);
+        color: white;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .chart-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+      }
+
+      .chart-btn.active {
+        background: linear-gradient(135deg, #10b981, #34d399);
+      }
+
+      .weekly-insights {
+        margin-top: 15px;
+        padding: 15px;
+        background: linear-gradient(135deg, #e0f2fe, #b3e5fc);
+        border-radius: 10px;
+        border-left: 4px solid #0288d1;
+      }
+
+      .insight-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 8px 0;
+        padding: 8px;
+        background: white;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .insight-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+
+      .insight-positive {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .insight-warning {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .insight-info {
+        background: #dbeafe;
+        color: #1e40af;
+      }
     </style>
   </head>
   <body>
@@ -238,14 +643,293 @@
     <div class="grid">
       <!-- Daily Coding Hours Chart -->
       <div class="card">
-        <h2>📅 Daily Coding Hours</h2>
-        <canvas id="dailyHoursChart"></canvas>
+        <div class="chart-section">
+          <h2>📅 Daily Coding Hours</h2>
+
+          <!-- Motivation Text -->
+          <div class="motivation-text">
+            <span class="emoji">🎯</span>
+            <strong>Consistency is Key!</strong> Small daily efforts lead to
+            massive results. Every hour you code today builds tomorrow's
+            expertise.
+          </div>
+
+          <!-- Chart Controls -->
+          <div class="chart-controls">
+            <button
+              class="chart-btn active"
+              onclick="toggleChartView('daily', 'current')"
+            >
+              This Week
+            </button>
+            <button
+              class="chart-btn"
+              onclick="toggleChartView('daily', 'previous')"
+            >
+              Last Week
+            </button>
+            <button
+              class="chart-btn"
+              onclick="toggleChartView('daily', 'month')"
+            >
+              This Month
+            </button>
+            <button class="chart-btn" onclick="exportChart('daily')">
+              📊 Export
+            </button>
+          </div>
+
+          <canvas id="dailyHoursChart"></canvas>
+
+          <!-- Performance Metrics -->
+          <div class="performance-metrics">
+            <div class="metric-card">
+              <div class="metric-value" id="dailyAverage">5.2h</div>
+              <div class="metric-label">Daily Average</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="weeklyTotal">36h</div>
+              <div class="metric-label">Weekly Total</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="streakDays">12</div>
+              <div class="metric-label">Day Streak</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="efficiency">87%</div>
+              <div class="metric-label">Efficiency</div>
+            </div>
+          </div>
+
+          <!-- Improvement Tips -->
+          <div class="improvement-tips">
+            <h4>💡 Boost Your Daily Coding</h4>
+            <div class="tip-grid">
+              <div class="tip-item">
+                <div class="tip-title">🌅 Morning Code Sessions</div>
+                <div class="tip-description">
+                  Start with 1-2 hours of focused coding when your mind is fresh
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🍅 Pomodoro Technique</div>
+                <div class="tip-description">
+                  25-min focused sessions with 5-min breaks for maximum
+                  productivity
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">📱 Eliminate Distractions</div>
+                <div class="tip-description">
+                  Use focus apps, silent mode, and dedicated coding workspace
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🎯 Set Daily Goals</div>
+                <div class="tip-description">
+                  Define specific, achievable tasks before starting each session
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keyboard Shortcuts -->
+          <div class="shortcuts-section">
+            <h4>⚡ Essential VS Code Shortcuts</h4>
+            <div class="shortcut-grid">
+              <div class="shortcut-item">
+                <span>Quick File Open</span>
+                <span class="shortcut-key">Ctrl+P</span>
+              </div>
+              <div class="shortcut-item">
+                <span>Command Palette</span>
+                <span class="shortcut-key">Ctrl+Shift+P</span>
+              </div>
+              <div class="shortcut-item">
+                <span>Multi-Cursor</span>
+                <span class="shortcut-key">Alt+Click</span>
+              </div>
+              <div class="shortcut-item">
+                <span>Duplicate Line</span>
+                <span class="shortcut-key">Shift+Alt+↓</span>
+              </div>
+              <div class="shortcut-item">
+                <span>Format Document</span>
+                <span class="shortcut-key">Shift+Alt+F</span>
+              </div>
+              <div class="shortcut-item">
+                <span>Toggle Comment</span>
+                <span class="shortcut-key">Ctrl+/</span>
+              </div>
+              <div class="shortcut-item">
+                <span>Find & Replace</span>
+                <span class="shortcut-key">Ctrl+H</span>
+              </div>
+              <div class="shortcut-item">
+                <span>Go to Definition</span>
+                <span class="shortcut-key">F12</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Weekly Report -->
       <div class="card">
-        <h2>📊 Weekly Productivity Trend</h2>
-        <canvas id="weeklyChart"></canvas>
+        <div class="chart-section">
+          <h2>📊 Weekly Productivity Trend</h2>
+
+          <!-- Motivation Text -->
+          <div class="motivation-text">
+            <span class="emoji">📈</span>
+            <strong>Track Your Growth!</strong> Analyze patterns, identify peak
+            performance times, and optimize your coding schedule for maximum
+            impact.
+          </div>
+
+          <!-- Chart Controls -->
+          <div class="chart-controls">
+            <button
+              class="chart-btn active"
+              onclick="toggleChartView('weekly', 'productivity')"
+            >
+              Productivity
+            </button>
+            <button
+              class="chart-btn"
+              onclick="toggleChartView('weekly', 'focus')"
+            >
+              Focus Score
+            </button>
+            <button
+              class="chart-btn"
+              onclick="toggleChartView('weekly', 'commits')"
+            >
+              Commits
+            </button>
+            <button class="chart-btn" onclick="generateWeeklyReport()">
+              📑 Generate Report
+            </button>
+          </div>
+
+          <canvas id="weeklyChart"></canvas>
+
+          <!-- Weekly Insights -->
+          <div class="weekly-insights">
+            <h4>🔍 Weekly Insights</h4>
+            <div class="insight-item">
+              <div class="insight-icon insight-positive">📈</div>
+              <span
+                ><strong>Peak Day:</strong> Thursday shows 23% higher
+                productivity than average</span
+              >
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon insight-warning">⚠️</div>
+              <span
+                ><strong>Low Energy:</strong> Monday performance dropped 15% -
+                consider lighter tasks</span
+              >
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon insight-info">💡</div>
+              <span
+                ><strong>Opportunity:</strong> Weekend coding sessions could
+                boost weekly total by 20%</span
+              >
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon insight-positive">🎯</div>
+              <span
+                ><strong>Consistency:</strong> You're maintaining 85% daily goal
+                achievement rate</span
+              >
+            </div>
+          </div>
+
+          <!-- Advanced Performance Tips -->
+          <div class="improvement-tips">
+            <h4>🚀 Advanced Performance Optimization</h4>
+            <div class="tip-grid">
+              <div class="tip-item">
+                <div class="tip-title">⚡ Hot Reloading</div>
+                <div class="tip-description">
+                  Use dev servers with hot reload to see changes instantly
+                  without manual refresh
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🔧 Code Snippets</div>
+                <div class="tip-description">
+                  Create custom snippets for frequently used code patterns and
+                  boilerplates
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🔍 IntelliSense</div>
+                <div class="tip-description">
+                  Leverage auto-completion and type checking to code faster and
+                  with fewer errors
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">📝 Live Templates</div>
+                <div class="tip-description">
+                  Use IDE templates for common code structures like loops,
+                  functions, and classes
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🔄 Refactoring Tools</div>
+                <div class="tip-description">
+                  Use automated refactoring to rename variables, extract
+                  methods, and restructure code
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🐛 Debugging Shortcuts</div>
+                <div class="tip-description">
+                  Master breakpoints, step-through debugging, and variable
+                  inspection tools
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fast Coding Techniques -->
+          <div class="shortcuts-section">
+            <h4>🏃‍♂️ Fast Coding Techniques</h4>
+            <div class="tip-grid">
+              <div class="tip-item">
+                <div class="tip-title">📋 Clipboard History</div>
+                <div class="tip-description">
+                  Use Ctrl+Shift+V to access clipboard history and paste
+                  previous copies
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🔤 Emmet Abbreviations</div>
+                <div class="tip-description">
+                  Type "div.container>ul>li*5" and press Tab for instant HTML
+                  structure
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">⚡ Zen Mode</div>
+                <div class="tip-description">
+                  Press Ctrl+K Z for distraction-free coding environment
+                </div>
+              </div>
+              <div class="tip-item">
+                <div class="tip-title">🔍 Symbol Search</div>
+                <div class="tip-description">
+                  Use Ctrl+T to quickly jump to any function, class, or variable
+                  in your project
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Top Commands -->
@@ -256,14 +940,123 @@
 
       <!-- Tracking + Timer -->
       <div class="card">
-        <h2>⏱️ Tracking</h2>
-        <label>
-          <input type="checkbox" id="trackingToggle" /> Enable Tracking
+        <h2>⏱️ Smart Productivity Timer</h2>
+
+        <!-- Tracking Toggle -->
+        <label
+          style="
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+          "
+        >
+          <input
+            type="checkbox"
+            id="trackingToggle"
+            style="transform: scale(1.2)"
+          />
+          <span>Enable Smart Tracking</span>
         </label>
-        <p id="trackingStatus">Tracking is OFF</p>
-        <button onclick="startTimer()">Start Coding Session</button>
-        <button onclick="stopTimer()">Stop</button>
-        <div class="timer" id="timer">00:00:00</div>
+        <p id="trackingStatus" style="margin-bottom: 15px">Tracking is OFF</p>
+
+        <!-- Timer Container -->
+        <div class="timer-container">
+          <!-- Timer Display -->
+          <div class="timer-display" id="timerDisplay">
+            <div id="timer">00:00:00</div>
+            <div
+              style="font-size: 0.8rem; margin-top: 5px; opacity: 0.8"
+              id="timerMode"
+            >
+              Ready to Start
+            </div>
+          </div>
+
+          <!-- Timer Controls -->
+          <div class="timer-controls">
+            <button
+              class="timer-btn start"
+              id="startBtn"
+              onclick="startTimer()"
+            >
+              ▶️ Start
+            </button>
+            <button
+              class="timer-btn pause"
+              id="pauseBtn"
+              onclick="pauseTimer()"
+              disabled
+            >
+              ⏸️ Pause
+            </button>
+            <button
+              class="timer-btn stop"
+              id="stopBtn"
+              onclick="stopTimer()"
+              disabled
+            >
+              ⏹️ Stop
+            </button>
+          </div>
+
+          <!-- Session Statistics -->
+          <div class="session-stats">
+            <div class="stat-card">
+              <div class="stat-value" id="todayTime">0h 0m</div>
+              <div class="stat-label">Today's Total</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="sessionCount">0</div>
+              <div class="stat-label">Sessions</div>
+            </div>
+          </div>
+
+          <!-- Productivity Meter -->
+          <div class="productivity-meter">
+            <div
+              style="font-size: 0.9rem; font-weight: bold; margin-bottom: 8px"
+            >
+              Productivity Score: <span id="productivityScore">0%</span>
+            </div>
+            <div class="productivity-bar">
+              <div
+                class="productivity-fill"
+                id="productivityFill"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Session Goals -->
+          <div class="session-goals">
+            <h4 style="margin: 0 0 10px 0">📋 Session Goals</h4>
+            <div class="goal-item">
+              <span>Code for 25 minutes (Pomodoro)</span>
+              <div
+                class="goal-checkbox"
+                id="goal1"
+                onclick="toggleGoal('goal1')"
+              ></div>
+            </div>
+            <div class="goal-item">
+              <span>Complete 1 feature</span>
+              <div
+                class="goal-checkbox"
+                id="goal2"
+                onclick="toggleGoal('goal2')"
+              ></div>
+            </div>
+            <div class="goal-item">
+              <span>Write documentation</span>
+              <div
+                class="goal-checkbox"
+                id="goal3"
+                onclick="toggleGoal('goal3')"
+              ></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Badges -->
@@ -412,48 +1205,363 @@
     </div>
 
     <script>
-      // Daily Coding Hours Chart (Bar Chart)
-      new Chart(document.getElementById("dailyHoursChart"), {
-        type: "bar",
-        data: {
-          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          datasets: [
-            {
-              label: "Hours Worked",
-              data: [4, 6, 5, 7, 3, 2, 4], // Example data
-              backgroundColor: "#4a90e2",
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: "Hours" },
-            },
-            x: {
-              title: { display: true, text: "Days" },
-            },
+      // Enhanced Chart Data Storage
+      const chartData = {
+        daily: {
+          current: {
+            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            hours: [4.2, 6.1, 5.3, 7.5, 3.8, 2.1, 4.0],
+            efficiency: [85, 92, 78, 96, 70, 60, 82],
+          },
+          previous: {
+            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            hours: [3.5, 5.2, 4.8, 6.2, 4.1, 1.8, 3.2],
+            efficiency: [78, 85, 82, 89, 75, 55, 76],
+          },
+          month: {
+            labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+            hours: [32, 28, 35, 31],
+            efficiency: [83, 79, 87, 85],
           },
         },
-      });
-
-      // Weekly Productivity Line Chart
-      new Chart(document.getElementById("weeklyChart"), {
-        type: "line",
-        data: {
-          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          datasets: [
-            {
-              label: "Productivity Score",
-              data: [70, 85, 60, 90, 75, 50, 65],
-              borderColor: "#67c1f5",
-              backgroundColor: "rgba(103,193,245,0.2)",
-              fill: true,
-              tension: 0.3,
-            },
-          ],
+        weekly: {
+          productivity: [70, 85, 60, 90, 75, 50, 65],
+          focus: [80, 92, 65, 95, 78, 45, 70],
+          commits: [12, 18, 8, 22, 15, 3, 11],
         },
+      };
+
+      // Chart instances
+      let dailyChart, weeklyChart;
+
+      // Initialize Daily Coding Hours Chart
+      function initDailyChart() {
+        const ctx = document.getElementById("dailyHoursChart").getContext("2d");
+        dailyChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: chartData.daily.current.labels,
+            datasets: [
+              {
+                label: "Hours Worked",
+                data: chartData.daily.current.hours,
+                backgroundColor: [
+                  "#4a90e2",
+                  "#67c1f5",
+                  "#50e3c2",
+                  "#f5a623",
+                  "#d0021b",
+                  "#7b68ee",
+                  "#20b2aa",
+                ],
+                borderColor: "#2c5282",
+                borderWidth: 1,
+                borderRadius: 8,
+                borderSkipped: false,
+              },
+              {
+                label: "Efficiency %",
+                data: chartData.daily.current.efficiency,
+                type: "line",
+                borderColor: "#10b981",
+                backgroundColor: "rgba(16, 185, 129, 0.1)",
+                yAxisID: "y1",
+                tension: 0.4,
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            interaction: {
+              mode: "index",
+              intersect: false,
+            },
+            plugins: {
+              legend: {
+                position: "top",
+              },
+              tooltip: {
+                callbacks: {
+                  afterLabel: function (context) {
+                    if (context.datasetIndex === 0) {
+                      return `Efficiency: ${
+                        chartData.daily.current.efficiency[context.dataIndex]
+                      }%`;
+                    }
+                    return "";
+                  },
+                },
+              },
+            },
+            scales: {
+              y: {
+                type: "linear",
+                display: true,
+                position: "left",
+                beginAtZero: true,
+                title: { display: true, text: "Hours" },
+                grid: { color: "rgba(0,0,0,0.1)" },
+              },
+              y1: {
+                type: "linear",
+                display: true,
+                position: "right",
+                beginAtZero: true,
+                max: 100,
+                title: { display: true, text: "Efficiency %" },
+                grid: { drawOnChartArea: false },
+              },
+              x: {
+                title: { display: true, text: "Days" },
+                grid: { color: "rgba(0,0,0,0.1)" },
+              },
+            },
+            animation: {
+              duration: 2000,
+              easing: "easeInOutQuart",
+            },
+          },
+        });
+      }
+
+      // Initialize Weekly Productivity Chart
+      function initWeeklyChart() {
+        const ctx = document.getElementById("weeklyChart").getContext("2d");
+        weeklyChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            datasets: [
+              {
+                label: "Productivity Score",
+                data: chartData.weekly.productivity,
+                borderColor: "#67c1f5",
+                backgroundColor: "rgba(103,193,245,0.2)",
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: "#4a90e2",
+                pointBorderColor: "#ffffff",
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+              tooltip: {
+                mode: "index",
+                intersect: false,
+                callbacks: {
+                  afterLabel: function (context) {
+                    const day = context.label;
+                    const score = context.parsed.y;
+                    let feedback = "";
+                    if (score >= 85) feedback = "🔥 Excellent performance!";
+                    else if (score >= 70) feedback = "👍 Good productivity";
+                    else if (score >= 50) feedback = "📈 Room for improvement";
+                    else feedback = "⚠️ Focus needed";
+                    return feedback;
+                  },
+                },
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                title: { display: true, text: "Productivity Score" },
+                grid: { color: "rgba(0,0,0,0.1)" },
+              },
+              x: {
+                title: { display: true, text: "Days" },
+                grid: { color: "rgba(0,0,0,0.1)" },
+              },
+            },
+            animation: {
+              duration: 2000,
+              easing: "easeInOutQuart",
+            },
+          },
+        });
+      }
+
+      // Chart Control Functions
+      function toggleChartView(chartType, viewType) {
+        // Update button states
+        const buttons = document.querySelectorAll(`[onclick*="${chartType}"]`);
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        event.target.classList.add("active");
+
+        if (chartType === "daily") {
+          updateDailyChart(viewType);
+        } else if (chartType === "weekly") {
+          updateWeeklyChart(viewType);
+        }
+      }
+
+      function updateDailyChart(viewType) {
+        const data = chartData.daily[viewType] || chartData.daily.current;
+
+        dailyChart.data.labels = data.labels;
+        dailyChart.data.datasets[0].data = data.hours;
+        if (data.efficiency) {
+          dailyChart.data.datasets[1].data = data.efficiency;
+        }
+
+        dailyChart.update("active");
+        updateDailyMetrics(viewType);
+      }
+
+      function updateWeeklyChart(viewType) {
+        const data =
+          chartData.weekly[viewType] || chartData.weekly.productivity;
+
+        weeklyChart.data.datasets[0].data = data;
+        weeklyChart.data.datasets[0].label =
+          viewType.charAt(0).toUpperCase() + viewType.slice(1);
+
+        // Update colors based on chart type
+        const colors = {
+          productivity: { border: "#67c1f5", bg: "rgba(103,193,245,0.2)" },
+          focus: { border: "#10b981", bg: "rgba(16,185,129,0.2)" },
+          commits: { border: "#f59e0b", bg: "rgba(245,158,11,0.2)" },
+        };
+
+        weeklyChart.data.datasets[0].borderColor = colors[viewType].border;
+        weeklyChart.data.datasets[0].backgroundColor = colors[viewType].bg;
+        weeklyChart.update("active");
+      }
+
+      function updateDailyMetrics(viewType = "current") {
+        const data = chartData.daily[viewType];
+        const totalHours = data.hours.reduce((a, b) => a + b, 0);
+        const avgHours = totalHours / data.hours.length;
+        const avgEfficiency = data.efficiency
+          ? data.efficiency.reduce((a, b) => a + b, 0) / data.efficiency.length
+          : 85;
+
+        // Calculate streak (simplified)
+        const streak = data.hours.filter((h) => h > 0).length;
+
+        document.getElementById(
+          "dailyAverage"
+        ).textContent = `${avgHours.toFixed(1)}h`;
+        document.getElementById(
+          "weeklyTotal"
+        ).textContent = `${totalHours.toFixed(0)}h`;
+        document.getElementById("streakDays").textContent = streak;
+        document.getElementById("efficiency").textContent = `${Math.round(
+          avgEfficiency
+        )}%`;
+      }
+
+      function exportChart(chartType) {
+        const chart = chartType === "daily" ? dailyChart : weeklyChart;
+        const url = chart.toBase64Image();
+        const link = document.createElement("a");
+        link.download = `${chartType}-chart-${
+          new Date().toISOString().split("T")[0]
+        }.png`;
+        link.href = url;
+        link.click();
+
+        showNotification(
+          `📊 ${
+            chartType.charAt(0).toUpperCase() + chartType.slice(1)
+          } chart exported successfully!`
+        );
+      }
+
+      function generateWeeklyReport() {
+        const report = {
+          totalHours: chartData.daily.current.hours.reduce((a, b) => a + b, 0),
+          avgProductivity:
+            chartData.weekly.productivity.reduce((a, b) => a + b, 0) / 7,
+          peakDay:
+            chartData.daily.current.labels[
+              chartData.weekly.productivity.indexOf(
+                Math.max(...chartData.weekly.productivity)
+              )
+            ],
+          improvements: [
+            "Consider morning coding sessions for better focus",
+            "Use Pomodoro technique on low-energy days",
+            "Schedule complex tasks during peak performance times",
+          ],
+        };
+
+        const reportHTML = `
+          <div style="background: white; padding: 20px; border-radius: 10px; max-width: 400px;">
+            <h3>📑 Weekly Report</h3>
+            <p><strong>Total Hours:</strong> ${report.totalHours.toFixed(
+              1
+            )}h</p>
+            <p><strong>Avg Productivity:</strong> ${Math.round(
+              report.avgProductivity
+            )}%</p>
+            <p><strong>Peak Day:</strong> ${report.peakDay}</p>
+            <h4>💡 Suggestions:</h4>
+            <ul>
+              ${report.improvements.map((item) => `<li>${item}</li>`).join("")}
+            </ul>
+            <button onclick="this.closest('.modal').remove()" style="margin-top: 15px; width: 100%;">Close</button>
+          </div>
+        `;
+
+        showModal(reportHTML);
+      }
+
+      function showModal(content) {
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1002;
+          animation: fadeIn 0.3s ease;
+        `;
+        modal.innerHTML = content;
+        modal.className = "modal";
+        document.body.appendChild(modal);
+      }
+
+      // Initialize charts on load
+      document.addEventListener("DOMContentLoaded", function () {
+        initDailyChart();
+        initWeeklyChart();
+        updateDailyMetrics();
+
+        // Auto-update charts every 30 seconds with slight variations
+        setInterval(() => {
+          const currentHour = new Date().getHours();
+          if (currentHour >= 9 && currentHour <= 17) {
+            // Working hours
+            // Simulate real-time updates
+            const todayIndex = new Date().getDay() || 7; // Sunday = 0, make it 7
+            if (todayIndex <= 7) {
+              chartData.daily.current.hours[todayIndex - 1] +=
+                Math.random() * 0.1;
+              chartData.daily.current.efficiency[todayIndex - 1] = Math.min(
+                100,
+                chartData.daily.current.efficiency[todayIndex - 1] +
+                  (Math.random() - 0.5) * 2
+              );
+              updateDailyChart("current");
+            }
+          }
+        }, 30000);
       });
 
       // Top Commands Chart
@@ -481,27 +1589,206 @@
       const trackingStatus = document.getElementById("trackingStatus");
       trackingToggle.addEventListener("change", () => {
         trackingStatus.textContent = trackingToggle.checked
-          ? "Tracking is ON"
-          : "Tracking is OFF";
+          ? "✅ Smart Tracking is ON"
+          : "❌ Tracking is OFF";
+        trackingStatus.style.color = trackingToggle.checked
+          ? "#10b981"
+          : "#ef4444";
       });
 
-      // Timer
-      let timerInterval,
-        seconds = 0;
+      // Enhanced Timer System
+      let timerInterval;
+      let seconds = 0;
+      let isRunning = false;
+      let isPaused = false;
+      let totalToday = parseInt(
+        localStorage.getItem("totalTodaySeconds") || "0"
+      );
+      let sessionCount = parseInt(localStorage.getItem("sessionCount") || "0");
+      let currentSessionStart = null;
+
+      // Timer state management
+      const timerDisplay = document.getElementById("timerDisplay");
+      const timerMode = document.getElementById("timerMode");
+      const startBtn = document.getElementById("startBtn");
+      const pauseBtn = document.getElementById("pauseBtn");
+      const stopBtn = document.getElementById("stopBtn");
+
+      function updateTimerDisplay() {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        document.getElementById("timer").textContent = `${hours
+          .toString()
+          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs
+          .toString()
+          .padStart(2, "0")}`;
+      }
+
+      function updateStats() {
+        const todayHours = Math.floor(totalToday / 3600);
+        const todayMins = Math.floor((totalToday % 3600) / 60);
+        document.getElementById(
+          "todayTime"
+        ).textContent = `${todayHours}h ${todayMins}m`;
+        document.getElementById("sessionCount").textContent = sessionCount;
+
+        // Update productivity score based on time and goals
+        const productivity = Math.min(
+          100,
+          Math.floor((totalToday / 3600) * 20 + getCompletedGoals() * 25)
+        );
+        document.getElementById(
+          "productivityScore"
+        ).textContent = `${productivity}%`;
+        document.getElementById(
+          "productivityFill"
+        ).style.width = `${productivity}%`;
+      }
+
+      function getCompletedGoals() {
+        return document.querySelectorAll(".goal-checkbox.completed").length;
+      }
+
       function startTimer() {
+        if (!isRunning && !isPaused) {
+          // Fresh start
+          seconds = 0;
+          currentSessionStart = Date.now();
+          sessionCount++;
+          localStorage.setItem("sessionCount", sessionCount.toString());
+        }
+
+        isRunning = true;
+        isPaused = false;
+
+        timerDisplay.classList.add("running");
+        timerMode.textContent = "🔥 Coding in Progress";
+
+        startBtn.disabled = true;
+        pauseBtn.disabled = false;
+        stopBtn.disabled = false;
+
         clearInterval(timerInterval);
         timerInterval = setInterval(() => {
           seconds++;
-          document.getElementById("timer").textContent = new Date(
-            seconds * 1000
-          )
-            .toISOString()
-            .substr(11, 8);
+          totalToday++;
+          updateTimerDisplay();
+          updateStats();
+
+          // Save progress
+          localStorage.setItem("totalTodaySeconds", totalToday.toString());
+
+          // Check for Pomodoro completion (25 minutes)
+          if (seconds === 1500) {
+            showTimerNotification(
+              "🍅 Pomodoro Complete! Take a 5-minute break."
+            );
+            document.getElementById("goal1").classList.add("completed");
+          }
         }, 1000);
       }
+
+      function pauseTimer() {
+        if (isRunning) {
+          clearInterval(timerInterval);
+          isRunning = false;
+          isPaused = true;
+
+          timerDisplay.classList.remove("running");
+          timerMode.textContent = "⏸️ Paused";
+
+          startBtn.disabled = false;
+          pauseBtn.disabled = true;
+
+          startBtn.innerHTML = "▶️ Resume";
+        }
+      }
+
       function stopTimer() {
         clearInterval(timerInterval);
+        isRunning = false;
+        isPaused = false;
+
+        timerDisplay.classList.remove("running");
+        timerMode.textContent = "✅ Session Complete";
+
+        startBtn.disabled = false;
+        pauseBtn.disabled = true;
+        stopBtn.disabled = true;
+
+        startBtn.innerHTML = "▶️ Start";
+
+        // Show session summary
+        if (seconds > 0) {
+          const sessionMinutes = Math.floor(seconds / 60);
+          showTimerNotification(
+            `🎉 Session completed! You coded for ${sessionMinutes} minutes.`
+          );
+        }
+
+        seconds = 0;
+        updateTimerDisplay();
+        updateStats();
       }
+
+      function toggleGoal(goalId) {
+        const goal = document.getElementById(goalId);
+        goal.classList.toggle("completed");
+        updateStats();
+
+        if (goal.classList.contains("completed")) {
+          showTimerNotification("🎯 Goal completed! Great job!");
+        }
+      }
+
+      function showTimerNotification(message) {
+        // Create or use existing notification
+        let notification = document.getElementById("timer-notification");
+        if (!notification) {
+          notification = document.createElement("div");
+          notification.id = "timer-notification";
+          notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.5s ease;
+            z-index: 1001;
+            max-width: 300px;
+          `;
+          document.body.appendChild(notification);
+        }
+
+        notification.textContent = message;
+        notification.style.transform = "translateX(0)";
+
+        setTimeout(() => {
+          notification.style.transform = "translateX(400px)";
+        }, 4000);
+      }
+
+      // Initialize timer stats on load
+      window.addEventListener("load", () => {
+        updateStats();
+
+        // Reset daily stats if it's a new day
+        const lastDate = localStorage.getItem("lastActiveDate");
+        const today = new Date().toDateString();
+        if (lastDate !== today) {
+          totalToday = 0;
+          sessionCount = 0;
+          localStorage.setItem("totalTodaySeconds", "0");
+          localStorage.setItem("sessionCount", "0");
+          localStorage.setItem("lastActiveDate", today);
+          updateStats();
+        }
+      });
 
       // Cloud Sync
       function toggleCloudSync() {

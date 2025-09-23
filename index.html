@@ -3,63 +3,492 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Chart.js - All Chart Types Demo</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+      }
+      .chart-container {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .chart-title {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .chart-description {
+        color: #666;
+        margin-bottom: 20px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      canvas {
+        max-width: 100%;
+        height: 400px !important;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 40px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Chart.js Demo</h1>
-    <canvas id="myChart" width="800" height="200"></canvas>
-    <canvas id="myChart2" width="800" height="200"></canvas>
+    <h1>Chart.js - Complete Chart Types Gallery</h1>
+
+    <!-- Bar Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">📊 Bar Chart</h2>
+      <p class="chart-description">
+        Bar charts display data as rectangular bars with heights proportional to
+        the values they represent. Perfect for comparing discrete categories of
+        data and showing changes over time. Supports both vertical and
+        horizontal orientations.
+      </p>
+      <canvas id="barChart"></canvas>
+    </div>
+
+    <!-- Line Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">📈 Line Chart</h2>
+      <p class="chart-description">
+        Line charts connect data points with straight lines, ideal for
+        displaying trends over time or continuous data. Excellent for showing
+        how values change and identifying patterns, peaks, and valleys in your
+        data.
+      </p>
+      <canvas id="lineChart"></canvas>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">🥧 Pie Chart</h2>
+      <p class="chart-description">
+        Pie charts represent data as slices of a circular pie, where each slice
+        size is proportional to its value. Best used for showing parts of a
+        whole, composition data, and when you have a limited number of
+        categories.
+      </p>
+      <canvas id="pieChart"></canvas>
+    </div>
+
+    <!-- Doughnut Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">🍩 Doughnut Chart</h2>
+      <p class="chart-description">
+        Similar to pie charts but with a hollow center, doughnut charts provide
+        space for additional information in the center. Great for displaying
+        hierarchical data or when you want to emphasize the total value while
+        showing individual components.
+      </p>
+      <canvas id="doughnutChart"></canvas>
+    </div>
+
+    <!-- Radar Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">🕸️ Radar Chart</h2>
+      <p class="chart-description">
+        Radar charts display multivariate data on a circular grid with multiple
+        axes. Each axis represents a different variable. Perfect for comparing
+        multiple subjects across several characteristics, like performance
+        metrics or survey results.
+      </p>
+      <canvas id="radarChart"></canvas>
+    </div>
+
+    <!-- Polar Area Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">🧭 Polar Area Chart</h2>
+      <p class="chart-description">
+        Polar area charts are similar to pie charts but use the radius to
+        represent data values instead of the arc length. Useful when you want to
+        show both the relative size and the individual values of data
+        categories.
+      </p>
+      <canvas id="polarChart"></canvas>
+    </div>
+
+    <!-- Scatter Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">⚫ Scatter Chart</h2>
+      <p class="chart-description">
+        Scatter charts plot individual data points using Cartesian coordinates
+        to show relationships between two variables. Excellent for identifying
+        correlations, outliers, and patterns in data distributions.
+      </p>
+      <canvas id="scatterChart"></canvas>
+    </div>
+
+    <!-- Bubble Chart -->
+    <div class="chart-container">
+      <h2 class="chart-title">🫧 Bubble Chart</h2>
+      <p class="chart-description">
+        Bubble charts extend scatter charts by adding a third dimension through
+        bubble size. Each bubble represents a data point with three values.
+        Perfect for displaying complex relationships between three variables
+        simultaneously.
+      </p>
+      <canvas id="bubbleChart"></canvas>
+    </div>
 
     <script>
-      const data = [
-        { year: 2010, count: 10 },
-        { year: 2011, count: 20 },
-        { year: 2012, count: 15 },
-        { year: 2013, count: 25 },
-        { year: 2014, count: 22 },
-        { year: 2015, count: 30 },
-        { year: 2016, count: 28 },
-      ];
+      // Sample data
+      const labels = ["January", "February", "March", "April", "May", "June"];
+      const data1 = [65, 59, 80, 81, 56, 55];
+      const data2 = [28, 48, 40, 19, 86, 27];
 
-      new Chart(document.getElementById("myChart"), {
+      // Color palette
+      const colors = {
+        primary: "rgba(54, 162, 235, 0.8)",
+        secondary: "rgba(255, 99, 132, 0.8)",
+        success: "rgba(75, 192, 192, 0.8)",
+        warning: "rgba(255, 205, 86, 0.8)",
+        info: "rgba(153, 102, 255, 0.8)",
+        light: "rgba(201, 203, 207, 0.8)",
+      };
+
+      // 1. Bar Chart
+      new Chart(document.getElementById("barChart"), {
         type: "bar",
         data: {
-          labels: data.map((row) => row.year),
+          labels: labels,
           datasets: [
             {
-              label: "Acquisitions by year",
-              data: data.map((row) => row.count),
+              label: "Sales 2023",
+              data: data1,
+              backgroundColor: colors.primary,
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+            },
+            {
+              label: "Sales 2024",
+              data: data2,
+              backgroundColor: colors.secondary,
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
             },
           ],
         },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Monthly Sales Comparison",
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
       });
 
-      const ctx = document.getElementById("myChart2").getContext("2d");
-      const myChart2 = new Chart(ctx, {
-        type: "bar", // Chart type
+      // 2. Line Chart
+      new Chart(document.getElementById("lineChart"), {
+        type: "line",
         data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: labels,
           datasets: [
             {
-              label: "Votes",
-              data: [12, 19, 3, 5, 2, 3],
+              label: "Website Traffic",
+              data: data1,
+              borderColor: colors.success,
+              backgroundColor: "rgba(75, 192, 192, 0.2)",
+              tension: 0.4,
+              fill: true,
+            },
+            {
+              label: "Social Media Traffic",
+              data: data2,
+              borderColor: colors.warning,
+              backgroundColor: "rgba(255, 205, 86, 0.2)",
+              tension: 0.4,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Traffic Sources Over Time",
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // 3. Pie Chart
+      new Chart(document.getElementById("pieChart"), {
+        type: "pie",
+        data: {
+          labels: ["Desktop", "Mobile", "Tablet", "Smart TV", "Other"],
+          datasets: [
+            {
+              data: [35, 45, 15, 3, 2],
               backgroundColor: [
-                "red",
-                "blue",
-                "yellow",
-                "green",
-                "purple",
-                "orange",
+                colors.primary,
+                colors.secondary,
+                colors.success,
+                colors.warning,
+                colors.info,
               ],
             },
           ],
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
-            legend: { position: "top" },
-            title: { display: true, text: "Votes per Color" },
+            title: {
+              display: true,
+              text: "Device Usage Distribution",
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      });
+
+      // 4. Doughnut Chart
+      new Chart(document.getElementById("doughnutChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["Product A", "Product B", "Product C", "Product D"],
+          datasets: [
+            {
+              data: [300, 50, 100, 80],
+              backgroundColor: [
+                colors.primary,
+                colors.secondary,
+                colors.success,
+                colors.warning,
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Product Sales Distribution",
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+          cutout: "50%",
+        },
+      });
+
+      // 5. Radar Chart
+      new Chart(document.getElementById("radarChart"), {
+        type: "radar",
+        data: {
+          labels: [
+            "Speed",
+            "Reliability",
+            "Comfort",
+            "Safety",
+            "Efficiency",
+            "Cost",
+          ],
+          datasets: [
+            {
+              label: "Product A",
+              data: [8, 7, 6, 9, 8, 5],
+              borderColor: colors.primary,
+              backgroundColor: "rgba(54, 162, 235, 0.2)",
+            },
+            {
+              label: "Product B",
+              data: [6, 9, 8, 7, 6, 7],
+              borderColor: colors.secondary,
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Product Performance Comparison",
+            },
+          },
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 10,
+            },
+          },
+        },
+      });
+
+      // 6. Polar Area Chart
+      new Chart(document.getElementById("polarChart"), {
+        type: "polarArea",
+        data: {
+          labels: ["Red", "Green", "Yellow", "Grey", "Blue"],
+          datasets: [
+            {
+              data: [11, 16, 7, 3, 14],
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.8)",
+                "rgba(75, 192, 192, 0.8)",
+                "rgba(255, 205, 86, 0.8)",
+                "rgba(201, 203, 207, 0.8)",
+                "rgba(54, 162, 235, 0.8)",
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Color Preference Survey",
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      });
+
+      // 7. Scatter Chart
+      new Chart(document.getElementById("scatterChart"), {
+        type: "scatter",
+        data: {
+          datasets: [
+            {
+              label: "Dataset 1",
+              data: [
+                { x: 10, y: 20 },
+                { x: 15, y: 10 },
+                { x: 26, y: 12 },
+                { x: 30, y: 25 },
+                { x: 35, y: 18 },
+                { x: 40, y: 30 },
+                { x: 45, y: 28 },
+              ],
+              backgroundColor: colors.primary,
+            },
+            {
+              label: "Dataset 2",
+              data: [
+                { x: 12, y: 15 },
+                { x: 18, y: 22 },
+                { x: 25, y: 8 },
+                { x: 32, y: 30 },
+                { x: 38, y: 15 },
+                { x: 42, y: 25 },
+                { x: 48, y: 20 },
+              ],
+              backgroundColor: colors.secondary,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Correlation Analysis",
+            },
+          },
+          scales: {
+            x: {
+              type: "linear",
+              position: "bottom",
+              title: {
+                display: true,
+                text: "X Axis",
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: "Y Axis",
+              },
+            },
+          },
+        },
+      });
+
+      // 8. Bubble Chart
+      new Chart(document.getElementById("bubbleChart"), {
+        type: "bubble",
+        data: {
+          datasets: [
+            {
+              label: "Company A",
+              data: [
+                { x: 20, y: 30, r: 15 },
+                { x: 40, y: 10, r: 10 },
+                { x: 30, y: 20, r: 12 },
+                { x: 50, y: 25, r: 18 },
+              ],
+              backgroundColor: colors.primary,
+            },
+            {
+              label: "Company B",
+              data: [
+                { x: 25, y: 25, r: 20 },
+                { x: 35, y: 15, r: 8 },
+                { x: 45, y: 30, r: 14 },
+                { x: 55, y: 20, r: 16 },
+              ],
+              backgroundColor: colors.secondary,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Market Analysis (X: Market Share, Y: Growth Rate, Size: Revenue)",
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Market Share (%)",
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: "Growth Rate (%)",
+              },
+            },
           },
         },
       });

@@ -31,30 +31,173 @@
         transform: translateY(-3px);
       }
       .badges {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 15px;
         margin-top: 15px;
       }
       .badge {
-        flex: 1;
-        background: #fef3c7;
-        padding: 15px;
+        background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        padding: 20px;
         text-align: center;
-        border-radius: 12px;
-        font-size: 20px;
+        border-radius: 16px;
+        font-size: 16px;
         position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        overflow: hidden;
+      }
+      .badge:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: #4a90e2;
+      }
+      .badge.unlocked {
+        background: linear-gradient(135deg, #10b981, #34d399);
+        color: white;
+        animation: badgeUnlock 0.6s ease-out;
+      }
+      .badge.legendary {
+        background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        color: white;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+      }
+      .badge.epic {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        color: white;
+      }
+      .badge-icon {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 8px;
+        animation: pulse 2s infinite;
+      }
+      .badge-title {
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+      .badge-description {
+        font-size: 0.75rem;
+        opacity: 0.8;
+        margin-bottom: 10px;
       }
       .progress {
-        height: 8px;
-        background: #ddd;
-        border-radius: 6px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
         margin-top: 10px;
         overflow: hidden;
+        position: relative;
       }
       .progress-bar {
         height: 100%;
         background: linear-gradient(90deg, #4a90e2, #67c1f5);
-        width: 50%;
+        border-radius: 8px;
+        transition: width 0.8s ease-out;
+        position: relative;
+        overflow: hidden;
+      }
+      .progress-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+      .badge-level {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-radius: 12px;
+        padding: 2px 8px;
+        font-size: 0.7rem;
+        font-weight: bold;
+      }
+      .badge-tooltip {
+        position: absolute;
+        bottom: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 1000;
+      }
+      .badge:hover .badge-tooltip {
+        opacity: 1;
+      }
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #10b981, #34d399);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        transform: translateX(400px);
+        transition: transform 0.5s ease;
+        z-index: 1001;
+      }
+      .notification.show {
+        transform: translateX(0);
+      }
+      @keyframes badgeUnlock {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+      @keyframes sparkle {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
       button,
       input[type="text"],
@@ -125,26 +268,130 @@
 
       <!-- Badges -->
       <div class="card">
-        <h2>🏅 Earned Badges</h2>
+        <h2>🏅 Earned Badges & Achievements</h2>
         <div class="badges">
-          <div class="badge">
-            🔥 Streak
+          <div
+            class="badge unlocked"
+            data-level="15"
+            onclick="showBadgeDetails('streak')"
+          >
+            <span class="badge-level">Lv.15</span>
+            <span class="badge-icon">🔥</span>
+            <div class="badge-title">Fire Streak</div>
+            <div class="badge-description">15 days coding streak</div>
             <div class="progress">
-              <div class="progress-bar" style="width: 80%"></div>
+              <div
+                class="progress-bar"
+                style="width: 80%"
+                data-progress="80"
+              ></div>
+            </div>
+            <div class="badge-tooltip">
+              Next: 20 day streak for Master level!
             </div>
           </div>
-          <div class="badge">
-            ⚡ Speed
+
+          <div
+            class="badge epic unlocked"
+            data-level="8"
+            onclick="showBadgeDetails('speed')"
+          >
+            <span class="badge-level">Lv.8</span>
+            <span class="badge-icon">⚡</span>
+            <div class="badge-title">Lightning Coder</div>
+            <div class="badge-description">1000+ lines per day</div>
             <div class="progress">
-              <div class="progress-bar" style="width: 60%"></div>
+              <div
+                class="progress-bar"
+                style="width: 60%"
+                data-progress="60"
+              ></div>
+            </div>
+            <div class="badge-tooltip">
+              Epic tier achieved! Next: Legendary at Lv.10
             </div>
           </div>
-          <div class="badge">
-            🏆 Master
+
+          <div
+            class="badge"
+            data-level="3"
+            onclick="showBadgeDetails('master')"
+          >
+            <span class="badge-level">Lv.3</span>
+            <span class="badge-icon">🏆</span>
+            <div class="badge-title">Code Master</div>
+            <div class="badge-description">Master 5 languages</div>
             <div class="progress">
-              <div class="progress-bar" style="width: 40%"></div>
+              <div
+                class="progress-bar"
+                style="width: 40%"
+                data-progress="40"
+              ></div>
+            </div>
+            <div class="badge-tooltip">Learn 2 more languages to unlock!</div>
+          </div>
+
+          <div
+            class="badge legendary unlocked"
+            data-level="25"
+            onclick="showBadgeDetails('night')"
+          >
+            <span class="badge-level">Lv.25</span>
+            <span class="badge-icon">🌙</span>
+            <div class="badge-title">Night Owl</div>
+            <div class="badge-description">100 late night sessions</div>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                style="width: 100%"
+                data-progress="100"
+              ></div>
+            </div>
+            <div class="badge-tooltip">Legendary achievement unlocked!</div>
+          </div>
+
+          <div
+            class="badge unlocked"
+            data-level="12"
+            onclick="showBadgeDetails('bug')"
+          >
+            <span class="badge-level">Lv.12</span>
+            <span class="badge-icon">🐛</span>
+            <div class="badge-title">Bug Hunter</div>
+            <div class="badge-description">Fixed 500+ bugs</div>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                style="width: 90%"
+                data-progress="90"
+              ></div>
+            </div>
+            <div class="badge-tooltip">
+              Almost at Epic tier! 50 more bugs to go
             </div>
           </div>
+
+          <div class="badge" data-level="1" onclick="showBadgeDetails('team')">
+            <span class="badge-level">Lv.1</span>
+            <span class="badge-icon">👥</span>
+            <div class="badge-title">Team Player</div>
+            <div class="badge-description">Collaborate on projects</div>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                style="width: 20%"
+                data-progress="20"
+              ></div>
+            </div>
+            <div class="badge-tooltip">Join more collaborative projects!</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center">
+          <button onclick="simulateProgress()" style="margin-right: 10px">
+            🎯 Simulate Progress
+          </button>
+          <button onclick="unlockRandomBadge()">🎁 Random Unlock</button>
         </div>
       </div>
 
@@ -288,7 +535,261 @@
           document.getElementById("apiStatus").textContent =
             "✅ API Key loaded.";
         }
+        // Initialize badge system
+        initializeBadges();
       };
+
+      // Enhanced Badge System
+      const badgeData = {
+        streak: {
+          name: "Fire Streak",
+          description: "Maintain daily coding streaks",
+          levels: [5, 10, 15, 20, 30],
+          rewards: ["Beginner", "Intermediate", "Advanced", "Expert", "Master"],
+        },
+        speed: {
+          name: "Lightning Coder",
+          description: "Code with impressive speed",
+          levels: [100, 500, 1000, 2000, 5000],
+          rewards: ["Quick", "Fast", "Rapid", "Lightning", "Supersonic"],
+        },
+        master: {
+          name: "Code Master",
+          description: "Master multiple programming languages",
+          levels: [2, 3, 5, 8, 12],
+          rewards: ["Learner", "Skilled", "Proficient", "Expert", "Master"],
+        },
+        night: {
+          name: "Night Owl",
+          description: "Late night coding sessions",
+          levels: [10, 25, 50, 100, 200],
+          rewards: [
+            "Early Bird",
+            "Night Worker",
+            "Owl",
+            "Night Master",
+            "Legendary Owl",
+          ],
+        },
+        bug: {
+          name: "Bug Hunter",
+          description: "Find and fix bugs efficiently",
+          levels: [50, 150, 300, 500, 1000],
+          rewards: [
+            "Detector",
+            "Hunter",
+            "Exterminator",
+            "Bug Master",
+            "Legendary Hunter",
+          ],
+        },
+        team: {
+          name: "Team Player",
+          description: "Collaborate effectively with others",
+          levels: [2, 5, 10, 20, 50],
+          rewards: [
+            "Helper",
+            "Collaborator",
+            "Team Member",
+            "Team Leader",
+            "Team Master",
+          ],
+        },
+      };
+
+      function initializeBadges() {
+        // Add notification container
+        if (!document.querySelector(".notification")) {
+          const notification = document.createElement("div");
+          notification.className = "notification";
+          notification.id = "achievement-notification";
+          document.body.appendChild(notification);
+        }
+
+        // Initialize progress bar animations
+        setTimeout(() => {
+          document.querySelectorAll(".progress-bar").forEach((bar) => {
+            const progress = bar.dataset.progress;
+            bar.style.width = "0%";
+            setTimeout(() => {
+              bar.style.width = progress + "%";
+            }, 100);
+          });
+        }, 500);
+      }
+
+      function showBadgeDetails(badgeType) {
+        const badge = badgeData[badgeType];
+        if (!badge) return;
+
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1002;
+          animation: fadeIn 0.3s ease;
+        `;
+
+        modal.innerHTML = `
+          <div style="
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+          ">
+            <button onclick="this.closest('.modal').remove()" style="
+              position: absolute;
+              top: 10px;
+              right: 15px;
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+            ">×</button>
+            <h2>${badge.name}</h2>
+            <p>${badge.description}</p>
+            <div style="margin: 20px 0;">
+              <h4>Reward Levels:</h4>
+              ${badge.levels
+                .map(
+                  (level, i) => `
+                <div style="margin: 5px 0; padding: 8px; background: #f0f4f9; border-radius: 8px;">
+                  Level ${i + 1}: ${level} → ${badge.rewards[i]}
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+            <button onclick="this.closest('.modal').remove()" style="margin-top: 15px;">Close</button>
+          </div>
+        `;
+
+        modal.className = "modal";
+        document.body.appendChild(modal);
+      }
+
+      function showNotification(message, duration = 3000) {
+        const notification = document.getElementById(
+          "achievement-notification"
+        );
+        notification.textContent = message;
+        notification.classList.add("show");
+
+        setTimeout(() => {
+          notification.classList.remove("show");
+        }, duration);
+      }
+
+      function simulateProgress() {
+        const badges = document.querySelectorAll(".badge:not(.unlocked)");
+        if (badges.length === 0) {
+          showNotification("🎉 All badges unlocked!");
+          return;
+        }
+
+        const randomBadge = badges[Math.floor(Math.random() * badges.length)];
+        const progressBar = randomBadge.querySelector(".progress-bar");
+        const currentProgress = parseInt(progressBar.dataset.progress) || 0;
+        const newProgress = Math.min(
+          100,
+          currentProgress + Math.floor(Math.random() * 20) + 5
+        );
+
+        progressBar.dataset.progress = newProgress;
+        progressBar.style.width = newProgress + "%";
+
+        if (newProgress >= 100) {
+          setTimeout(() => {
+            randomBadge.classList.add("unlocked");
+            showNotification(
+              `🎉 Badge unlocked: ${
+                randomBadge.querySelector(".badge-title").textContent
+              }!`
+            );
+
+            // Add sparkle effect
+            addSparkleEffect(randomBadge);
+          }, 500);
+        } else {
+          showNotification(`📈 Progress updated: ${newProgress}%`);
+        }
+      }
+
+      function unlockRandomBadge() {
+        const lockedBadges = document.querySelectorAll(".badge:not(.unlocked)");
+        if (lockedBadges.length === 0) {
+          showNotification("🎉 All badges already unlocked!");
+          return;
+        }
+
+        const randomBadge =
+          lockedBadges[Math.floor(Math.random() * lockedBadges.length)];
+        const progressBar = randomBadge.querySelector(".progress-bar");
+
+        // Animate to 100%
+        progressBar.style.width = "100%";
+        progressBar.dataset.progress = "100";
+
+        setTimeout(() => {
+          randomBadge.classList.add("unlocked");
+          const badgeTitle =
+            randomBadge.querySelector(".badge-title").textContent;
+          showNotification(`🎁 Surprise unlock: ${badgeTitle}!`);
+
+          // Add tier based on level
+          const level = parseInt(randomBadge.dataset.level) || 1;
+          if (level >= 20) {
+            randomBadge.classList.add("legendary");
+          } else if (level >= 10) {
+            randomBadge.classList.add("epic");
+          }
+
+          addSparkleEffect(randomBadge);
+        }, 800);
+      }
+
+      function addSparkleEffect(badge) {
+        for (let i = 0; i < 6; i++) {
+          const sparkle = document.createElement("div");
+          sparkle.style.cssText = `
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffd700;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle 1s ease-out forwards;
+            top: ${Math.random() * 100}%;
+            left: ${Math.random() * 100}%;
+          `;
+
+          badge.style.position = "relative";
+          badge.appendChild(sparkle);
+
+          setTimeout(() => sparkle.remove(), 1000);
+        }
+      }
+
+      // Auto progress simulation (optional)
+      setInterval(() => {
+        if (Math.random() < 0.1) {
+          // 10% chance every 5 seconds
+          const unlockedBadges = document.querySelectorAll(".badge.unlocked");
+          if (unlockedBadges.length < 6) {
+            // Randomly progress a badge
+            simulateProgress();
+          }
+        }
+      }, 5000);
     </script>
   </body>
 </html>
